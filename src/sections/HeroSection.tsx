@@ -125,9 +125,9 @@ export const HeroSection: React.FC = () => {
             <MagneticButton data-cursor="explore">
               <a
                 href={siteConfig.hero.primaryCta.href}
-                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 bg-[#171717] text-[#FAFAF8] text-xs font-body font-semibold uppercase tracking-[0.16em] hover:bg-[#333] transition-all hover:translate-y-[-1px] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#171717]"
+                className="hero-primary-cta inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 bg-[#171717] text-[#FAFAF8] text-xs font-body font-semibold uppercase tracking-[0.16em] hover:bg-[#333] transition-all hover:translate-y-[-1px] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#171717]"
               >
-                <span>{siteConfig.hero.primaryCta.label}</span>
+                <span className="font-semibold">{siteConfig.hero.primaryCta.label}</span>
                 <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
               </a>
             </MagneticButton>
@@ -135,7 +135,7 @@ export const HeroSection: React.FC = () => {
             <MagneticButton>
               <a
                 href={siteConfig.hero.secondaryCta.href}
-                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FAFAF8]/90 border border-[#E5E3DE] hover:border-[#171717] text-[#171717] text-xs font-body font-semibold uppercase tracking-[0.16em] backdrop-blur-sm transition-all hover:translate-y-[-1px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#171717]"
+                className="hero-secondary-cta inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FAFAF8]/90 border border-[#E5E3DE] hover:border-[#171717] text-[#171717] text-xs font-body font-semibold uppercase tracking-[0.16em] backdrop-blur-sm transition-all hover:translate-y-[-1px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#171717]"
               >
                 <span>{siteConfig.hero.secondaryCta.label}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -145,7 +145,7 @@ export const HeroSection: React.FC = () => {
             {/* Quick Shader Preset Button (Responsive) */}
             <button
               onClick={() => setShowPresetControls(!showPresetControls)}
-              className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-3 sm:py-3.5 border border-[#E5E3DE] bg-[#FAFAF8]/80 hover:bg-[#FFFFFF] text-[#777773] hover:text-[#171717] text-xs font-mono transition-all"
+              className="hero-secondary-cta inline-flex items-center gap-2 px-3 sm:px-3.5 py-3 sm:py-3.5 border border-[#E5E3DE] bg-[#FAFAF8]/80 hover:bg-[#FFFFFF] text-[#777773] hover:text-[#171717] text-xs font-mono transition-all"
               title="Change Chrome Shader Preset"
               aria-label="Change Chrome Shader Preset"
               data-cursor="preset"

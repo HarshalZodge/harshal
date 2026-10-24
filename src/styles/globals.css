@@ -367,8 +367,29 @@ html.dark {
   color: #D8DADD !important;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
 }
-[data-theme="obsidian"] #hero .inline-flex {
+[data-theme="obsidian"] #hero .hero-primary-cta {
+  background-color: #FAFAF8 !important;
+  color: #171717 !important;
+  border-color: #FAFAF8 !important;
+}
+[data-theme="obsidian"] #hero .hero-primary-cta * {
+  color: #171717 !important;
+}
+[data-theme="obsidian"] #hero .hero-primary-cta:hover {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+[data-theme="obsidian"] #hero .hero-secondary-cta {
   background-color: rgba(13, 14, 17, 0.85) !important;
+  border-color: #242730 !important;
+  color: #FAFAF8 !important;
+}
+[data-theme="obsidian"] #hero .hero-secondary-cta * {
+  color: #FAFAF8 !important;
+}
+[data-theme="obsidian"] #hero .hero-secondary-cta:hover {
+  background-color: #1A1D24 !important;
+  border-color: #FAFAF8 !important;
 }
 
 [data-theme="obsidian"] ::selection {
