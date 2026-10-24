@@ -77,36 +77,40 @@ export const CertificationsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2 mb-10 pb-4">
+        {/* Category Filter Tabs - Sleek Frosted Glass Pill Dock */}
+        <div className="flex flex-wrap items-center gap-2 mb-10 pb-2">
           <span className="text-[10px] font-mono uppercase tracking-widest text-[#777773] mr-2 flex items-center gap-1.5">
             <Filter className="w-3.5 h-3.5" />
             <span>Category:</span>
           </span>
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat.id
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.12em] transition-all min-h-[36px] ${
-                  isActive
-                    ? 'bg-[#171717] text-[#FAFAF8] shadow-sm'
-                    : 'bg-[#FFFFFF] dark:bg-[#16181F] text-[#41464B] dark:text-[#A8ADB2] border border-[#E5E3DE] dark:border-[#22252C] hover:border-[#171717] dark:hover:border-[#FAFAF8]'
-                }`}
-                aria-pressed={isActive}
-              >
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono ${
-                    isActive ? 'bg-[#333333] text-[#FAFAF8]' : 'bg-[#E5E3DE] dark:bg-[#22252C] text-[#555] dark:text-[#AAA]'
+          <div className="inline-flex flex-wrap items-center gap-1 p-1 rounded-full bg-[#FAFAF8]/90 dark:bg-[#12141A]/90 backdrop-blur-xl border border-[#E5E3DE]/80 dark:border-white/10 shadow-sm">
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat.id
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.12em] rounded-full transition-all min-h-[36px] ${
+                    isActive
+                      ? 'bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] shadow-sm'
+                      : 'text-[#41464B] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/5'
                   }`}
+                  aria-pressed={isActive}
                 >
-                  {cat.count}
-                </span>
-              </button>
-            )
-          })}
+                  <span>{cat.label}</span>
+                  <span
+                    className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-bold leading-none ${
+                      isActive
+                        ? 'bg-white/20 dark:bg-black/20 text-inherit'
+                        : 'bg-black/5 dark:bg-white/10 text-inherit'
+                    }`}
+                  >
+                    {cat.count}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         {/* Credentials Grid */}

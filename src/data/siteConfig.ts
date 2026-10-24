@@ -97,9 +97,9 @@ export const siteConfig: SiteConfig = {
     { label: 'About', href: '#about' },
     { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#work' },
-    { label: 'Certifications', href: '#certifications', badge: '10 Verified' },
+    { label: 'Certifications', href: '#certifications', badge: '10' },
     { label: 'Milestones', href: '#journey' },
-    { label: 'The Lab', href: '#lab', badge: 'Interactive' },
+    { label: 'The Lab', href: '#lab' },
     { label: 'Contact', href: '#contact' },
   ],
   hero: {

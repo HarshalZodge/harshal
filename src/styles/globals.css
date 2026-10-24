@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-porcelain: #FAFAF8;
   --color-ivory: #F3F0E9;

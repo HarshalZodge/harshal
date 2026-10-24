@@ -50,24 +50,26 @@ export const SelectedWorkSection: React.FC = () => {
           </div>
 
           {/* Animated Category Filter Pills (Responsive scroll on small screens) */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#F3F0E9] border border-[#E5E3DE] self-start md:self-end">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-full bg-[#FAFAF8]/90 dark:bg-[#12141A]/90 border border-[#E5E3DE]/80 dark:border-white/10 backdrop-blur-xl shadow-sm self-start md:self-end">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.id
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.12em] transition-all min-h-[36px] ${
+                  className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.12em] rounded-full transition-all min-h-[36px] ${
                     isActive
-                      ? 'bg-[#171717] text-[#FAFAF8] shadow-sm'
-                      : 'text-[#41464B] hover:text-[#171717] hover:bg-[#FAFAF8]/60'
+                      ? 'bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] shadow-sm'
+                      : 'text-[#41464B] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/5'
                   }`}
                   aria-pressed={isActive}
                 >
                   <span>{cat.label}</span>
                   <span
-                    className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono ${
-                      isActive ? 'bg-[#333333] text-[#FAFAF8]' : 'bg-[#E5E3DE] text-[#555]'
+                    className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-bold leading-none ${
+                      isActive
+                        ? 'bg-white/20 dark:bg-black/20 text-inherit'
+                        : 'bg-black/5 dark:bg-white/10 text-inherit'
                     }`}
                   >
                     {cat.count}

@@ -32,6 +32,25 @@ export function useLenis() {
       window.dispatchEvent(new CustomEvent('studio:scroll-velocity', { detail: clampedVel }))
     })
 
+    // Expose lenis instance globally for programmatic scrolling
+    ;(window as unknown as { __lenis?: Lenis }).__lenis = lenis
+
+    // Intercept in-page anchor links for buttery-smooth Lenis scrolling
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a')
+      if (!target) return
+      const href = target.getAttribute('href')
+      if (href && href.startsWith('#') && href.length > 1) {
+        const targetElement = document.querySelector(href)
+        if (targetElement) {
+          e.preventDefault()
+          lenis.scrollTo(targetElement as HTMLElement, { offset: -70, duration: 1.2 })
+          history.pushState(null, '', href)
+        }
+      }
+    }
+    document.addEventListener('click', handleAnchorClick)
+
     // Continuous RAF loop
     let rafId: number
     function raf(time: number) {
@@ -42,6 +61,8 @@ export function useLenis() {
 
     return () => {
       cancelAnimationFrame(rafId)
+      document.removeEventListener('click', handleAnchorClick)
+      delete (window as unknown as { __lenis?: Lenis }).__lenis
       lenis.destroy()
       window.dispatchEvent(new CustomEvent('studio:scroll-velocity', { detail: 0 }))
       document.documentElement.classList.remove('lenis', 'lenis-smooth')

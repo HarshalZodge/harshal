@@ -85,34 +85,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'py-3 sm:py-3.5 bg-[#FAFAF8]/90 backdrop-blur-md border-b border-[#E5E3DE] shadow-[0_2px_16px_rgba(23,23,23,0.04)]'
-            : 'py-5 sm:py-6 bg-transparent border-b border-transparent'
+            ? 'py-2.5 sm:py-3 bg-[#FAFAF8]/85 dark:bg-[#0D0E11]/85 backdrop-blur-xl border-b border-[#E5E3DE]/70 dark:border-white/10 shadow-[0_2px_20px_rgba(0,0,0,0.04)]'
+            : 'py-4 sm:py-5 bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-3 lg:gap-4">
           {/* Brand Wordmark & Monogram */}
           <a
             href="#"
-            className="group flex items-center gap-3 focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-2"
+            className="group flex items-center gap-2.5 sm:gap-3 shrink-0 focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-2"
             aria-label={`${siteConfig.identity.name} home`}
           >
-            <div className="w-8 h-8 rounded-none bg-[#171717] text-[#FAFAF8] flex items-center justify-center font-display font-extrabold text-sm tracking-wider transition-transform duration-300 group-hover:scale-105 shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] flex items-center justify-center font-display font-extrabold text-xs tracking-wider transition-transform duration-300 group-hover:scale-105 shadow-sm">
               {siteConfig.identity.monogram}
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-bold text-[15px] tracking-[-0.015em] text-[#171717] group-hover:text-[#41464B] transition-colors leading-tight">
+              <span className="font-display font-bold text-[13.5px] sm:text-[14.5px] tracking-[-0.015em] text-[#171717] dark:text-[#FAFAF8] group-hover:text-[#41464B] transition-colors leading-tight">
                 {siteConfig.identity.name}
               </span>
-              <span className="font-body text-[9px] font-semibold uppercase tracking-[0.2em] text-[#777773] leading-tight mt-0.5">
+              <span className="hidden sm:inline font-body text-[8.5px] sm:text-[9px] font-semibold uppercase tracking-[0.2em] text-[#777773] dark:text-[#A8ADB2] leading-tight mt-0.5">
                 {siteConfig.identity.role}
               </span>
             </div>
           </a>
 
-          {/* Center Navigation Links (Desktop) */}
+          {/* Center Navigation Links (Floating Frosted Glass Pill) */}
           <nav
             aria-label="Primary navigation"
-            className="hidden md:flex items-center gap-1 lg:gap-1.5 px-3 py-1.5 rounded-none bg-[#FAFAF8]/80 border border-[#E5E3DE] backdrop-blur-md shadow-sm"
+            className="hidden md:flex items-center gap-0.5 p-1 rounded-full bg-[#FAFAF8]/90 dark:bg-[#12141A]/90 border border-[#E5E3DE]/80 dark:border-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
           >
             {siteConfig.navigation.map((item) => {
               const sectionId = item.href.replace('#', '')
@@ -122,107 +122,118 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`relative px-3.5 py-1 text-[11px] font-body font-semibold uppercase tracking-[0.14em] transition-all focus-visible:ring-2 focus-visible:ring-[#171717] ${
+                  className={`relative px-2.5 lg:px-3 py-1.5 text-[10.5px] lg:text-[11px] font-body font-semibold uppercase tracking-[0.14em] transition-all rounded-full flex items-center whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#171717] dark:focus-visible:ring-[#FAFAF8] ${
                     isActive
-                      ? 'text-[#171717]'
-                      : 'text-[#777773] hover:text-[#171717]'
+                      ? 'text-[#FAFAF8] dark:text-[#12141A]'
+                      : 'text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/5'
                   }`}
                 >
-                  <span className="relative z-10">{item.label}</span>
-                  {item.badge && (
-                    <span className="ml-1.5 px-1.5 py-0.5 text-[8.5px] font-body font-bold uppercase tracking-wider bg-[#171717] text-[#FAFAF8]">
-                      {item.badge}
-                    </span>
-                  )}
+                  {/* Sliding Frosted Pill Active Indicator */}
                   {isActive && (
-                    <motion.span
-                      layoutId="active-nav-indicator"
-                      className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-[#171717]"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    <motion.div
+                      layoutId="active-nav-pill"
+                      className="absolute inset-0 rounded-full bg-[#171717] dark:bg-[#FAFAF8] shadow-sm"
+                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                     />
                   )}
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    {item.label}
+                    {item.badge && (
+                      <span
+                        className={`px-1.5 py-0.5 text-[8.5px] font-mono font-bold uppercase rounded-full whitespace-nowrap leading-none ${
+                          isActive
+                            ? 'bg-white/20 dark:bg-black/20 text-inherit'
+                            : 'bg-black/5 dark:bg-white/10 text-inherit'
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </span>
                 </a>
               )
             })}
           </nav>
 
-          {/* Right Action: Typography Selector + Quick Shortcuts + Status + Contact CTA */}
-          <div className="hidden lg:flex items-center gap-2.5">
-            {/* Dynamic Typography Preset Toggle */}
-            <button
-              onClick={cycleFontPreset}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-mono border border-[#E5E3DE] hover:border-[#171717] bg-[#FAFAF8] text-[#171717] hover:bg-[#F3F0E9] transition-all"
-              title={`Active Typography: ${fontPreset.toUpperCase()} — Click to cycle curated aesthetics (Unbounded, Syne, Clash Display, Modernist)`}
-              aria-label="Cycle typography aesthetic"
-            >
-              <span className="font-display font-extrabold text-xs">Aa</span>
-              <span className="text-[9px] font-mono uppercase tracking-wider">{fontPreset}</span>
-            </button>
+          {/* Right Action: Unified Mini-Icon Capsule Dock + Availability + CTA */}
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
+            {/* Unified Mini-Icon Capsule Dock */}
+            <div className="flex items-center gap-0.5 p-1 rounded-full bg-[#FAFAF8]/90 dark:bg-[#12141A]/90 border border-[#E5E3DE]/80 dark:border-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              {/* Dynamic Typography Preset Toggle */}
+              <button
+                onClick={cycleFontPreset}
+                className="flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-full text-[#171717] dark:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                title={`Active Typography: ${fontPreset.toUpperCase()} — Click to cycle curated aesthetics (Unbounded, Syne, Clash Display, Modernist)`}
+                aria-label="Cycle typography aesthetic"
+              >
+                <span className="font-display font-extrabold text-[11px]">Aa</span>
+                <span className="text-[9px] font-mono uppercase tracking-wider hidden 2xl:inline">{fontPreset}</span>
+              </button>
 
-            {/* Command Palette Trigger */}
-            <button
-              onClick={handleOpenPalette}
-              className="flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-mono text-[#777773] hover:text-[#171717] border border-[#E5E3DE] hover:border-[#171717] transition-all bg-[#FAFAF8] focus-visible:ring-2 focus-visible:ring-[#171717]"
-              aria-label="Open command palette"
-              title="Press Ctrl+K or Cmd+K"
-            >
-              <Command className="w-3 h-3" />
-              <span className="text-[10px]">⌘K</span>
-            </button>
+              <div className="w-[1px] h-3.5 bg-[#E5E3DE] dark:bg-white/10 mx-0.5" />
 
-            {/* Audio Toggle */}
-            <button
-              onClick={toggleSound}
-              className={`flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-mono border transition-all ${
-                soundEnabled
-                  ? 'bg-[#171717] text-[#FAFAF8] border-[#171717]'
-                  : 'bg-[#FAFAF8] text-[#777773] hover:text-[#171717] border-[#E5E3DE] hover:border-[#171717]'
-              }`}
-              title={soundEnabled ? 'Mute Procedural Web Audio' : 'Enable Procedural Web Audio'}
-              aria-label={soundEnabled ? 'Mute procedural audio' : 'Enable procedural audio'}
-            >
-              {soundEnabled ? (
-                <Volume2 className="w-3 h-3 text-emerald-400" />
-              ) : (
-                <VolumeX className="w-3 h-3" />
-              )}
-              <span className="text-[10px] uppercase">SFX</span>
-            </button>
+              {/* Command Palette Trigger */}
+              <button
+                onClick={handleOpenPalette}
+                className="w-7 h-7 flex items-center justify-center rounded-full text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                aria-label="Open command palette (Ctrl+K)"
+                title="Command Palette (⌘K / Ctrl+K)"
+              >
+                <Command className="w-3.5 h-3.5" />
+              </button>
 
-            {/* Swiss Resume Modal Trigger */}
-            <button
-              onClick={openResume}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-mono text-[#171717] border border-[#E5E3DE] hover:border-[#171717] transition-all bg-[#FAFAF8]"
-              title="Launch Swiss Modernist Resume / Print View"
-              aria-label="Open resume view"
-            >
-              <FileText className="w-3 h-3 text-[#777773]" />
-              <span className="text-[10px] uppercase font-semibold">CV</span>
-            </button>
+              {/* Audio Toggle */}
+              <button
+                onClick={toggleSound}
+                className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${
+                  soundEnabled
+                    ? 'text-emerald-500 bg-emerald-500/10'
+                    : 'text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/10'
+                }`}
+                title={soundEnabled ? 'Mute Procedural Web Audio' : 'Enable Procedural Web Audio'}
+                aria-label={soundEnabled ? 'Mute procedural audio' : 'Enable procedural audio'}
+              >
+                {soundEnabled ? (
+                  <Volume2 className="w-3.5 h-3.5 text-emerald-500" />
+                ) : (
+                  <VolumeX className="w-3.5 h-3.5" />
+                )}
+              </button>
 
-            {/* Theme Toggle (Ivory / Obsidian) */}
-            <button
-              onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-mono border border-[#E5E3DE] hover:border-[#171717] bg-[#FAFAF8] text-[#777773] hover:text-[#171717] transition-all"
-              title={`Switch to ${theme === 'ivory' ? 'Obsidian' : 'Ivory'} Studio Theme`}
-              aria-label="Toggle studio theme"
-            >
-              {theme === 'obsidian' ? <Sun className="w-3 h-3 text-amber-400" /> : <Moon className="w-3 h-3" />}
-              <span className="text-[10px] uppercase hidden xl:inline">{theme}</span>
-            </button>
+              {/* Swiss Resume Modal Trigger */}
+              <button
+                onClick={openResume}
+                className="flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-full text-[#171717] dark:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                title="Launch Swiss Modernist Resume / Print View"
+                aria-label="Open resume view"
+              >
+                <FileText className="w-3 h-3 text-[#777773] dark:text-[#A8ADB2]" />
+                <span className="text-[9px] uppercase font-semibold">CV</span>
+              </button>
 
-            {/* Availability indicator */}
-            <div className="flex items-center gap-2 px-2.5 py-1 text-[11px] font-body border border-[#E5E3DE] bg-[#FFFFFF]/90">
+              {/* Theme Toggle (Ivory / Obsidian) */}
+              <button
+                onClick={toggleTheme}
+                className="w-7 h-7 flex items-center justify-center rounded-full text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8] hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                title={`Switch to ${theme === 'ivory' ? 'Obsidian' : 'Ivory'} Studio Theme`}
+                aria-label="Toggle studio theme"
+              >
+                {theme === 'obsidian' ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {/* Availability Indicator (Compact Pill) */}
+            <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#555]">
-                Open for 2025/2026
+              <span className="font-medium uppercase tracking-[0.12em]">
+                Available
               </span>
             </div>
 
-            {/* Direct CTA */}
+            {/* Direct Connect CTA */}
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#171717] text-[#FAFAF8] text-xs font-body font-semibold uppercase tracking-[0.14em] hover:bg-[#333] transition-colors focus-visible:ring-2 focus-visible:ring-[#171717]"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] text-xs font-body font-semibold uppercase tracking-[0.14em] rounded-full hover:bg-[#333] dark:hover:bg-[#FFFFFF] transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-[#171717] whitespace-nowrap"
             >
               <span>Connect</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -304,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                         {item.label}
                       </span>
                       {item.badge && (
-                        <span className="px-1.5 py-0.5 text-[8.5px] font-bold bg-[#171717] text-white">
+                        <span className="px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase rounded-full bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] whitespace-nowrap">
                           {item.badge}
                         </span>
                       )}
