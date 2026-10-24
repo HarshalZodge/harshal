@@ -1,0 +1,396 @@
+@import "tailwindcss";
+
+@theme {
+  --color-porcelain: #FAFAF8;
+  --color-ivory: #F3F0E9;
+  --color-pure: #FFFFFF;
+  --color-ink: #171717;
+  --color-ink-muted: #777773;
+  --color-hairline: #E5E3DE;
+  --color-chrome-highlight: #FFFFFF;
+  --color-chrome-mid: #A8ADB2;
+  --color-chrome-shadow: #41464B;
+
+  --font-display: var(--font-display-active, "Syne", "Space Grotesk", sans-serif);
+  --font-body: var(--font-body-active, "Plus Jakarta Sans", "Inter", sans-serif);
+  --font-mono: var(--font-mono-active, "JetBrains Mono", monospace);
+}
+
+:root {
+  --font-display-active: "Syne", "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body-active: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono-active: "JetBrains Mono", monospace;
+
+  --bg-porcelain: #FAFAF8;
+  --bg-ivory: #F3F0E9;
+  --bg-pure: #FFFFFF;
+  --text-ink: #171717;
+  --text-muted: #777773;
+  --border-hairline: #E5E3DE;
+  --border-subtle: rgba(23, 23, 23, 0.08);
+  --chrome-highlight: #FFFFFF;
+  --chrome-mid: #A8ADB2;
+  --chrome-shadow: #41464B;
+  
+  color-scheme: light;
+}
+
+/* Dynamic Typography Presets */
+html[data-font="syne"] {
+  --font-display-active: "Syne", "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body-active: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html[data-font="clash"] {
+  --font-display-active: "Clash Display", "Syne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body-active: "Satoshi", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html[data-font="unbounded"] {
+  --font-display-active: "Unbounded", "Syne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body-active: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html[data-font="modernist"] {
+  --font-display-active: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body-active: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-porcelain);
+  color: var(--text-ink);
+  font-family: var(--font-body-active);
+}
+
+body {
+  font-family: var(--font-body-active);
+}
+
+/* Lenis Smooth Scroll Engine Rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg-porcelain);
+  color: var(--text-ink);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Accessible focus ring across all interactive controls */
+*:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+/* Custom editorial selection */
+::selection {
+  background-color: #171717;
+  color: #FAFAF8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAF8;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D2CD;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #171717;
+}
+
+/* Utilities for editorial typography */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Subtle chrome sheen animation */
+@keyframes chrome-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.chrome-text-sheen {
+  background: linear-gradient(
+    90deg,
+    #111111 0%,
+    #41464B 25%,
+    #6E727A 50%,
+    #41464B 75%,
+    #111111 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: chrome-shimmer 8s linear infinite;
+}
+
+[data-theme="obsidian"] .chrome-text-sheen {
+  background: linear-gradient(
+    90deg,
+    #FFFFFF 0%,
+    #D8DADD 25%,
+    #888B92 50%,
+    #D8DADD 75%,
+    #FFFFFF 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: chrome-shimmer 8s linear infinite;
+}
+
+/* Smooth reveal transitions */
+.editorial-reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card hover lift effect */
+.editorial-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.editorial-card:hover {
+  transform: translateY(-2px);
+  border-color: #171717;
+  box-shadow: 0 12px 28px -8px rgba(23, 23, 23, 0.08);
+}
+
+/* Interactive touch target guarantee */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Respect reduced motion universally */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .editorial-card:hover {
+    transform: none !important;
+  }
+}
+
+.hero-gradient-veil {
+  background: linear-gradient(90deg, rgba(250, 250, 248, 0.94) 0%, rgba(250, 250, 248, 0.88) 35%, rgba(250, 250, 248, 0.40) 65%, rgba(250, 250, 248, 0.05) 90%, transparent 100%),
+              linear-gradient(180deg, rgba(250, 250, 248, 0.6) 0%, transparent 15%, transparent 80%, rgba(250, 250, 248, 0.95) 100%);
+}
+
+.studio-section-surface {
+  background-color: rgba(250, 250, 248, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Enhanced High-Contrast Readability in Ivory Mode */
+html:not([data-theme="obsidian"]) p.font-body {
+  color: #24262A;
+}
+html:not([data-theme="obsidian"]) .text-\[\#777773\] {
+  color: #44474E !important;
+}
+html:not([data-theme="obsidian"]) .text-\[\#41464B\] {
+  color: #26292E !important;
+}
+html:not([data-theme="obsidian"]) .text-\[\#A8ADB2\] {
+  color: #636770 !important;
+}
+
+/* Protected Permanent Dark Technical Card (never inverts) */
+.dark-spec-card {
+  background-color: #111111 !important;
+  color: #FAFAF8 !important;
+  border-color: #26272C !important;
+}
+.dark-spec-card h3,
+.dark-spec-card .text-white {
+  color: #FFFFFF !important;
+}
+.dark-spec-card .text-neutral-200 {
+  color: #E2E4E8 !important;
+}
+.dark-spec-card .text-neutral-300 {
+  color: #CACDD3 !important;
+}
+.dark-spec-card .text-neutral-400 {
+  color: #9EA2AB !important;
+}
+
+[data-theme="obsidian"] .hero-gradient-veil {
+  background: linear-gradient(90deg, rgba(13, 14, 17, 0.95) 0%, rgba(13, 14, 17, 0.90) 35%, rgba(13, 14, 17, 0.45) 65%, rgba(13, 14, 17, 0.08) 90%, transparent 100%),
+              linear-gradient(180deg, rgba(13, 14, 17, 0.7) 0%, transparent 15%, transparent 80%, rgba(13, 14, 17, 0.98) 100%);
+}
+
+[data-theme="obsidian"] .studio-section-surface {
+  background-color: rgba(13, 14, 17, 0.96) !important;
+}
+[data-theme="obsidian"],
+html.dark {
+  --bg-porcelain: #0D0E11;
+  --bg-ivory: #14161C;
+  --bg-pure: #1A1D24;
+  --text-ink: #F5F3EE;
+  --text-muted: #8E9299;
+  --border-hairline: #22252C;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --chrome-highlight: #FFFFFF;
+  --chrome-mid: #D8DADD;
+  --chrome-shadow: #111111;
+  
+  color-scheme: dark;
+  background-color: #0D0E11 !important;
+  color: #F5F3EE !important;
+}
+
+[data-theme="obsidian"] body {
+  background-color: #0D0E11 !important;
+  color: #F5F3EE !important;
+}
+
+[data-theme="obsidian"] .bg-\[\#FAFAF8\],
+[data-theme="obsidian"] .bg-\[\#FAFAF8\]\/90,
+[data-theme="obsidian"] .bg-\[\#FAFAF8\]\/95,
+[data-theme="obsidian"] .bg-\[\#FAFAF8\]\/80,
+[data-theme="obsidian"] .bg-\[\#FAFAF8\]\/75,
+[data-theme="obsidian"] .bg-\[\#FAFAF8\]\/50,
+[data-theme="obsidian"] .bg-\[\#F3F0E9\],
+[data-theme="obsidian"] .bg-\[\#F3F0E9\]\/40,
+[data-theme="obsidian"] .bg-\[\#F3F0E9\]\/50,
+[data-theme="obsidian"] .bg-\[\#F3F0E9\]\/60,
+[data-theme="obsidian"] .bg-\[\#F3F0E9\]\/80,
+[data-theme="obsidian"] .bg-\[\#FFFFFF\],
+[data-theme="obsidian"] .bg-\[\#FFFFFF\]\/90 {
+  background-color: #14161C !important;
+}
+
+[data-theme="obsidian"] .text-\[\#171717\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#111111\]:not(.dark-spec-card *) {
+  color: #F5F3EE !important;
+}
+[data-theme="obsidian"] .text-\[\#777773\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#41464B\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#383A3E\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#333438\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#2E3035\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#26282C\]:not(.dark-spec-card *),
+[data-theme="obsidian"] .text-\[\#24262A\]:not(.dark-spec-card *) {
+  color: #B4B8C0 !important;
+}
+
+[data-theme="obsidian"] .border-\[\#E5E3DE\],
+[data-theme="obsidian"] .border-\[\#E5E3DE\]\/50,
+[data-theme="obsidian"] .border-\[\#E5E3DE\]\/60 {
+  border-color: #242730 !important;
+}
+
+[data-theme="obsidian"] .bg-\[\#171717\]:not(.dark-spec-card) {
+  background-color: #F5F3EE !important;
+  color: #0D0E11 !important;
+}
+[data-theme="obsidian"] .hover\:bg-\[\#333\]:hover {
+  background-color: #FFFFFF !important;
+  color: #0D0E11 !important;
+}
+[data-theme="obsidian"] .text-\[\#FAFAF8\]:not(.dark-spec-card *) {
+  color: #0D0E11 !important;
+}
+[data-theme="obsidian"] .hover\:bg-\[\#F3F0E9\]:hover {
+  background-color: #1A1D25 !important;
+}
+[data-theme="obsidian"] .hover\:text-\[\#171717\]:hover {
+  color: #FFFFFF !important;
+}
+
+/* Hero contrast protection in Obsidian Mode over reflective chrome */
+[data-theme="obsidian"] #hero h1 {
+  color: #FFFFFF !important;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+[data-theme="obsidian"] #hero p {
+  color: #D8DADD !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+[data-theme="obsidian"] #hero .inline-flex {
+  background-color: rgba(13, 14, 17, 0.85) !important;
+}
+
+[data-theme="obsidian"] ::selection {
+  background-color: #F5F3EE;
+  color: #0D0E11;
+}
+
+/* =========================================================================
+   Print Stylesheet (Swiss Modernist Export)
+   ========================================================================= */
+@media print {
+  header, footer, aside, [role="dialog"], #hero, .custom-cursor {
+    display: none !important;
+  }
+  body, html {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  #printable-resume {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAFAF8" />
+      <stop offset="50%" stop-color="#F3F0E9" />
+      <stop offset="100%" stop-color="#E5E3DE" />
+    </linearGradient>
+    <linearGradient id="chrome" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="30%" stop-color="#DCDFE3" />
+      <stop offset="60%" stop-color="#41464B" />
+      <stop offset="85%" stop-color="#A8ADB2" />
+      <stop offset="100%" stop-color="#171717" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#E5E3DE" stroke-width="2" />
+  
+  <!-- Monogram Icon -->
+  <rect x="80" y="80" width="72" height="72" fill="#171717" />
+  <text x="116" y="128" font-family="system-ui, sans-serif" font-size="32" font-weight="bold" fill="url(#chrome)" text-anchor="middle">HZ</text>
+  
+  <!-- Category -->
+  <text x="80" y="240" font-family="monospace" font-size="20" fill="#777773" letter-spacing="4">INDEPENDENT DEVELOPER / AI EXPLORER</text>
+  
+  <!-- Title -->
+  <text x="80" y="320" font-family="system-ui, sans-serif" font-size="64" font-weight="bold" fill="#171717">Harshal Zodge</text>
+  
+  <!-- Tagline -->
+  <text x="80" y="390" font-family="system-ui, sans-serif" font-size="32" fill="#41464B">I build things that feel a little ahead of their time.</text>
+  
+  <!-- Tech badges -->
+  <text x="80" y="470" font-family="monospace" font-size="20" fill="#777773">REACT • TYPESCRIPT • THREE.JS • GLSL • PYTHON • ML</text>
+  
+  <!-- Abstract Chrome Sphere on the right -->
+  <circle cx="950" cy="315" r="180" fill="url(#chrome)" opacity="0.9" filter="drop-shadow(0px 20px 40px rgba(0,0,0,0.15))" />
+</svg>
