@@ -44,6 +44,6 @@ export interface StudioContextType {
 }
 
 export const PRESET_ORDER: ChromePreset[] = ['mercury', 'obsidian', 'iridescent', 'gold']
-export const FONT_ORDER: FontPreset[] = ['syne', 'clash', 'unbounded', 'modernist']
+export const FONT_ORDER: FontPreset[] = ['unbounded', 'syne', 'clash', 'modernist']
 
 export const StudioContext = createContext<StudioContextType | undefined>(undefined)

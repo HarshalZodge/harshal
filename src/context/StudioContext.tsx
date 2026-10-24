@@ -41,15 +41,15 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   // Real-time Scroll Velocity for Physics & Shaders
   const [scrollVelocity, setScrollVelocity] = useState<number>(0)
 
-  // Dynamic Typography Preset: 'syne' | 'clash' | 'unbounded' | 'modernist'
+  // Dynamic Typography Preset: 'unbounded' | 'syne' | 'clash' | 'modernist'
   const [fontPreset, setFontPresetState] = useState<FontPreset>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('hz_font_preset') as FontPreset
-      if (saved && ['syne', 'clash', 'unbounded', 'modernist'].includes(saved)) {
+      if (saved && ['unbounded', 'syne', 'clash', 'modernist'].includes(saved)) {
         return saved
       }
     }
-    return 'syne'
+    return 'unbounded'
   })
 
   // Synchronize Typography with HTML root attribute
@@ -66,7 +66,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [])
 
   const cycleFontPreset = useCallback((): FontPreset => {
-    let nextFont: FontPreset = 'syne'
+    let nextFont: FontPreset = 'unbounded'
     setFontPresetState((curr) => {
       const currentIndex = FONT_ORDER.indexOf(curr)
       const nextIndex = (currentIndex + 1) % FONT_ORDER.length

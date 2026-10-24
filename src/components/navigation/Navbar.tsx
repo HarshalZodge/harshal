@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             <button
               onClick={cycleFontPreset}
               className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-mono border border-[#E5E3DE] hover:border-[#171717] bg-[#FAFAF8] text-[#171717] hover:bg-[#F3F0E9] transition-all"
-              title={`Active Typography: ${fontPreset.toUpperCase()} — Click to cycle curated aesthetics (Syne, Clash Display, Unbounded, Modernist)`}
+              title={`Active Typography: ${fontPreset.toUpperCase()} — Click to cycle curated aesthetics (Unbounded, Syne, Clash Display, Modernist)`}
               aria-label="Cycle typography aesthetic"
             >
               <span className="font-display font-extrabold text-xs">Aa</span>
