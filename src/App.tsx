@@ -16,11 +16,16 @@ import { FilmGrain } from './components/ui/FilmGrain'
 import { ResumeModal } from './components/resume/ResumeModal'
 import { GlobalChromeAtmosphere } from './components/chrome/GlobalChromeAtmosphere'
 import { LiquidCurtainSeam } from './components/ui/LiquidCurtainSeam'
+import { ToastNotification } from './components/ui/ToastNotification'
 import { useLenis } from './hooks/useLenis'
+import { useTabSwitchMessage } from './hooks/useTabSwitchMessage'
 
 function StudioAppContent() {
   // Initialize Lenis luxury smooth scroll engine with momentum velocity dispatch
   useLenis()
+
+  // Track browser tab switching with engaging dynamic title & welcome-back toast
+  useTabSwitchMessage()
 
   return (
     <div className="relative min-h-screen bg-[#FAFAF8] text-[#171717] selection:bg-[#171717] selection:text-[#FAFAF8] flex flex-col">
@@ -96,6 +101,9 @@ function StudioAppContent() {
 
       {/* Swiss Modernist Curriculum Vitae & Print Mode */}
       <ResumeModal />
+
+      {/* Floating Dynamic Studio Toast Notifications */}
+      <ToastNotification />
     </div>
   )
 }
