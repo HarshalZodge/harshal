@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { siteConfig } from '../../data/siteConfig'
 import { useStudio } from '../../hooks/useStudio'
 import { soundFx } from '../../lib/soundFx'
+import { openHarshalAi } from '../../lib/harshalAiEngine'
 import {
   Search,
   ArrowRight,
@@ -80,6 +81,24 @@ export const CommandPalette: React.FC = () => {
 
   // Master Action and Navigation Catalog
   const allItems: PaletteItem[] = useMemo(() => [
+    // Featured AI Digital Twin
+    {
+      id: 'action-harshal-ai',
+      label: 'Ask Harshal AI Copilot (Digital Twin)',
+      category: 'Actions',
+      shortcut: '⌘AI',
+      description: 'Conversational intelligent agent trained on Harshal\'s projects, CNN computer vision, LangGraph agents, stack, and credentials.',
+      spec: [
+        { label: 'AGENT STATUS', value: 'Online' },
+        { label: 'KNOWLEDGE', value: '11 Domains' },
+        { label: 'ENGINE', value: 'Semantic RAG' },
+      ],
+      action: () => {
+        handleClose()
+        setTimeout(() => openHarshalAi(), 120)
+      },
+    },
+
     // Navigation
     {
       id: 'nav-about',
@@ -440,7 +459,7 @@ export const CommandPalette: React.FC = () => {
       ],
       action: () => window.open(siteConfig.contact.linkedin, '_blank'),
     },
-  ], [navigateTo, setPreset, executeCommand, soundEnabled, toggleSound, theme, toggleTheme, filmGrain, toggleFilmGrain, openResume, setFontPreset])
+  ], [handleClose, navigateTo, setPreset, executeCommand, soundEnabled, toggleSound, theme, toggleTheme, filmGrain, toggleFilmGrain, openResume, setFontPreset])
 
   // Filter based on active category and user search query
   const filteredItems = useMemo(() => {

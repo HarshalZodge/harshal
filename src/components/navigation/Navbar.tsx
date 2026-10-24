@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '../../data/siteConfig'
 import { useStudio } from '../../hooks/useStudio'
-import { Menu, X, ArrowUpRight, Command, Volume2, VolumeX, Sun, Moon, FileText } from 'lucide-react'
+import { openHarshalAi } from '../../lib/harshalAiEngine'
+import { Menu, X, ArrowUpRight, Command, Volume2, VolumeX, Sun, Moon, FileText, Sparkles } from 'lucide-react'
 
 interface NavbarProps {
   onOpenCommandPalette?: () => void
@@ -159,6 +160,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             {/* Unified Mini-Icon Capsule Dock */}
             <div className="flex items-center gap-0.5 p-1 rounded-full bg-[#FAFAF8]/90 dark:bg-[#12141A]/90 border border-[#E5E3DE]/80 dark:border-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              {/* Harshal AI Copilot Trigger */}
+              <button
+                onClick={openHarshalAi}
+                className="flex items-center gap-1 px-2.5 py-1 text-[10.5px] font-mono rounded-full bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/25 transition-all shadow-sm"
+                title="Ask Harshal AI — Interactive Digital Twin & Copilot"
+                aria-label="Ask Harshal AI Copilot"
+              >
+                <Sparkles className="w-3 h-3 text-purple-500 animate-pulse" />
+                <span className="font-semibold uppercase tracking-wider">AI</span>
+              </button>
+
+              <div className="w-[1px] h-3.5 bg-[#E5E3DE] dark:bg-white/10 mx-0.5" />
+
               {/* Dynamic Typography Preset Toggle */}
               <button
                 onClick={cycleFontPreset}

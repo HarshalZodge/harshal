@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../../data/projects'
+import { PROJECT_ARCHITECTURES } from '../../data/projectArchitectures'
+import { ProjectArchitectureFlow } from './ProjectArchitectureFlow'
 import { ProjectVisual } from './ProjectVisual'
 import { GithubIcon } from '../ui/Icons'
-import { X, ExternalLink, Layers, Cpu, Calendar, CheckCircle2, AlertCircle, ArrowUpRight, Sparkles } from 'lucide-react'
+import { soundFx } from '../../lib/soundFx'
+import { X, ExternalLink, Layers, Cpu, Calendar, CheckCircle2, AlertCircle, ArrowUpRight, Sparkles, Workflow } from 'lucide-react'
 
 interface ProjectDetailModalProps {
   project: Project | null
@@ -11,6 +14,8 @@ interface ProjectDetailModalProps {
 }
 
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
+  const [activeTab, setActiveTab] = useState<'specs' | 'architecture'>('specs')
+
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -43,6 +48,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
       aria-labelledby="modal-title"
     >
       <div
+        key={project.id}
         className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#FAFAF8] dark:bg-[#0E0F12] border border-[#E5E3DE] dark:border-[#22252C] shadow-2xl animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
@@ -116,70 +122,120 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             </div>
           )}
 
-          {/* Problem Statement & Objective */}
-          {project.problemStatement && (
-            <div className="mb-8 p-5 sm:p-6 bg-[#F3F0E9]/60 dark:bg-[#16181F]/70 border border-[#E5E3DE] dark:border-[#242730]">
-              <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-2 flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>Problem Statement & Technical Objective</span>
-              </h3>
-              <p className="text-xs sm:text-sm text-[#41464B] dark:text-[#A8ADB2] font-body leading-relaxed">
-                {project.problemStatement}
-              </p>
+          {/* View Mode Tabs (Specifications vs Interactive Architecture Flow) */}
+          {PROJECT_ARCHITECTURES[project.id] && (
+            <div className="flex items-center gap-2 mb-8 p-1 rounded-full bg-[#FAFAF8] dark:bg-[#15171C] border border-[#E5E3DE] dark:border-white/10 w-fit">
+              <button
+                onClick={() => {
+                  soundFx.playClick()
+                  setActiveTab('specs')
+                }}
+                className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider rounded-full transition-all ${
+                  activeTab === 'specs'
+                    ? 'bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] shadow-sm'
+                    : 'text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8]'
+                }`}
+                aria-pressed={activeTab === 'specs'}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Specifications & Features</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  soundFx.playClick()
+                  setActiveTab('architecture')
+                }}
+                className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider rounded-full transition-all ${
+                  activeTab === 'architecture'
+                    ? 'bg-[#171717] dark:bg-[#FAFAF8] text-[#FAFAF8] dark:text-[#171717] shadow-sm'
+                    : 'text-[#777773] dark:text-[#A8ADB2] hover:text-[#171717] dark:hover:text-[#FAFAF8]'
+                }`}
+                aria-pressed={activeTab === 'architecture'}
+              >
+                <Workflow className="w-3.5 h-3.5 text-purple-500" />
+                <span>System Architecture Flow</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+              </button>
             </div>
           )}
 
-          {/* Features Actually Implemented */}
-          {project.features && project.features.length > 0 && (
-            <div className="mb-8 p-5 sm:p-6 bg-[#FFFFFF] dark:bg-[#13151A] border border-[#E5E3DE] dark:border-[#242730]">
-              <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-4 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                <span>Verified Capabilities & Implemented Features</span>
-              </h3>
-              <ul className="space-y-2.5">
-                {project.features.map((feat, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#41464B] dark:text-[#D1D5DB] font-body">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-2" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Tab 1: Specifications & Problem Statement */}
+          {activeTab === 'specs' && (
+            <>
+              {/* Problem Statement & Objective */}
+              {project.problemStatement && (
+                <div className="mb-8 p-5 sm:p-6 bg-[#F3F0E9]/60 dark:bg-[#16181F]/70 border border-[#E5E3DE] dark:border-[#242730]">
+                  <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-2 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                    <span>Problem Statement & Technical Objective</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#41464B] dark:text-[#A8ADB2] font-body leading-relaxed">
+                    {project.problemStatement}
+                  </p>
+                </div>
+              )}
+
+              {/* Features Actually Implemented */}
+              {project.features && project.features.length > 0 && (
+                <div className="mb-8 p-5 sm:p-6 bg-[#FFFFFF] dark:bg-[#13151A] border border-[#E5E3DE] dark:border-[#242730]">
+                  <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-4 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>Verified Capabilities & Implemented Features</span>
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {project.features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#41464B] dark:text-[#D1D5DB] font-body">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-2" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Architectural Specifications */}
+              {project.architectureHighlights && project.architectureHighlights.length > 0 && (
+                <div className="mb-8 p-5 sm:p-6 bg-[#F3F0E9]/40 dark:bg-[#16181F]/40 border border-[#E5E3DE] dark:border-[#242730]">
+                  <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-4 flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-[#171717] dark:text-[#FAFAF8]" />
+                    <span>System Architecture & Engineering Decisions</span>
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {project.architectureHighlights.map((hl, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#41464B] dark:text-[#A8ADB2] font-body">
+                        <span className="w-1.5 h-1.5 bg-[#171717] dark:bg-[#FAFAF8] shrink-0 mt-2" />
+                        <span>{hl}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Future Improvements & Limitations */}
+              {project.futureImprovements && project.futureImprovements.length > 0 && (
+                <div className="mb-8 p-5 sm:p-6 bg-[#FFFFFF] dark:bg-[#13151A] border border-[#E5E3DE] dark:border-[#242730]">
+                  <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#777773] mb-3 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-indigo-400" />
+                    <span>Planned Future Improvements & Scope Expansion</span>
+                  </h3>
+                  <ul className="space-y-2">
+                    {project.futureImprovements.map((imp, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#777773] dark:text-[#9CA3AF] font-body">
+                        <span className="text-[10px] font-mono text-indigo-500 mt-0.5">↳</span>
+                        <span>{imp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
           )}
 
-          {/* Architectural Specifications */}
-          {project.architectureHighlights && project.architectureHighlights.length > 0 && (
-            <div className="mb-8 p-5 sm:p-6 bg-[#F3F0E9]/40 dark:bg-[#16181F]/40 border border-[#E5E3DE] dark:border-[#242730]">
-              <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#171717] dark:text-[#FAFAF8] mb-4 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-[#171717] dark:text-[#FAFAF8]" />
-                <span>System Architecture & Engineering Decisions</span>
-              </h3>
-              <ul className="space-y-2.5">
-                {project.architectureHighlights.map((hl, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#41464B] dark:text-[#A8ADB2] font-body">
-                    <span className="w-1.5 h-1.5 bg-[#171717] dark:bg-[#FAFAF8] shrink-0 mt-2" />
-                    <span>{hl}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Future Improvements & Limitations */}
-          {project.futureImprovements && project.futureImprovements.length > 0 && (
-            <div className="mb-8 p-5 sm:p-6 bg-[#FFFFFF] dark:bg-[#13151A] border border-[#E5E3DE] dark:border-[#242730]">
-              <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-[#777773] mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-indigo-400" />
-                <span>Planned Future Improvements & Scope Expansion</span>
-              </h3>
-              <ul className="space-y-2">
-                {project.futureImprovements.map((imp, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#777773] dark:text-[#9CA3AF] font-body">
-                    <span className="text-[10px] font-mono text-indigo-500 mt-0.5">↳</span>
-                    <span>{imp}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Tab 2: Interactive Architecture Flowchart */}
+          {activeTab === 'architecture' && PROJECT_ARCHITECTURES[project.id] && (
+            <div className="mb-8">
+              <ProjectArchitectureFlow architecture={PROJECT_ARCHITECTURES[project.id]} />
             </div>
           )}
 

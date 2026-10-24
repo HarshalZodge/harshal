@@ -17,6 +17,7 @@ import { ResumeModal } from './components/resume/ResumeModal'
 import { GlobalChromeAtmosphere } from './components/chrome/GlobalChromeAtmosphere'
 import { LiquidCurtainSeam } from './components/ui/LiquidCurtainSeam'
 import { ToastNotification } from './components/ui/ToastNotification'
+import { HarshalAiModal } from './components/ai/HarshalAiModal'
 import { useLenis } from './hooks/useLenis'
 import { useTabSwitchMessage } from './hooks/useTabSwitchMessage'
 
@@ -104,6 +105,9 @@ function StudioAppContent() {
 
       {/* Floating Dynamic Studio Toast Notifications */}
       <ToastNotification />
+
+      {/* Harshal AI Conversational Digital Twin Copilot */}
+      <HarshalAiModal />
     </div>
   )
 }
